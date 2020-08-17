@@ -218,6 +218,7 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
     pecl install xdebug-2.9.2 && \
     pecl install -o -f imagick && \
     pecl install -o -f redis && \
+    echo "extension=imagick.so" > /usr/local/etc/php/conf.d/imagick.ini && \
     echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini && \
     docker-php-source delete && \
     mkdir -p /etc/nginx && \
