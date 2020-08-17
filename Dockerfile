@@ -196,16 +196,28 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
     libxslt-dev \
     libffi-dev \
     freetype-dev \
+    libpng-dev \
+    libwebp-dev \
     sqlite-dev \
     libjpeg-turbo-dev \
+    libxml2-dev \
+    imagemagick-dev \
+    imagemagick \
+    jpegoptim \
+    optipng \
+    pngcrush \
     postgresql-dev && \
     docker-php-ext-configure gd \
-      --with-freetype \
-      --with-jpeg && \
+      --with-gd \
+      --with-freetype-dir=/usr/include/ \
+      --with-png-dir=/usr/include/ \
+      --with-jpeg-dir=/usr/include/ \
+      --with-webp-dir
     #curl iconv session
     #docker-php-ext-install pdo_mysql pdo_sqlite mysqli mcrypt gd exif intl xsl json soap dom zip opcache && \
-    docker-php-ext-install iconv pdo_mysql pdo_sqlite pgsql pdo_pgsql mysqli gd exif intl xsl json soap dom zip opcache && \
+    RUN docker-php-ext-install iconv pdo_mysql pdo_sqlite pgsql pdo_pgsql mysqli gd exif intl xsl json soap dom zip opcache && \
     pecl install xdebug-2.9.2 && \
+    pecl install -o -f imagick && \
     pecl install -o -f redis && \
     echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini && \
     docker-php-source delete && \
@@ -252,6 +264,7 @@ RUN echo "cgi.fix_pathinfo=0" > ${php_vars} &&\
     echo "post_max_size = 100M"  >> ${php_vars} &&\
     echo "variables_order = \"EGPCS\""  >> ${php_vars} && \
     echo "memory_limit = 128M"  >> ${php_vars} && \
+    echo "max_execution_time = 180"  >> ${php_vars} && \
     sed -i \
         -e "s/;catch_workers_output\s*=\s*yes/catch_workers_output = yes/g" \
         -e "s/pm.max_children = 5/pm.max_children = 4/g" \
