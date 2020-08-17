@@ -199,6 +199,7 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
     libpng-dev \
     libwebp-dev \
     sqlite-dev \
+    gd \
     libjpeg-turbo-dev \
     libxml2-dev \
     imagemagick-dev \
@@ -210,7 +211,6 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
     docker-php-ext-configure gd \
       --with-gd \
       --with-freetype=/usr/include/ \
-      --with-png=/usr/include/ \
       --with-jpeg=/usr/include/ \
       --with-webp
     #curl iconv session
