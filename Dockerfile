@@ -209,7 +209,6 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
     pngcrush \
     postgresql-dev && \
     docker-php-ext-configure gd \
-      --with-gd \
       --with-freetype=/usr/include/ \
       --with-jpeg=/usr/include/ \
       --with-webp
